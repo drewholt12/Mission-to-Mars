@@ -19,8 +19,8 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "hemisphere_image_urls": mars_hemisphers(browser),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemisphere_image_urls": mars_hemisphers(browser)
     }
 
     # Stop webdriver and return data
@@ -134,8 +134,8 @@ def mars_hemisphers(browser):
         
         # get jpg image
         img_click = bs.find('img', class_='wide-image')
-        img_jpg = img_click['src']
-        img_jpg_url = f'https://marshemispheres.com/{img_jpg}'
+        img_jpg = img_click['src'] # use parent element to find src 
+        img_jpg_url = f'https://marshemispheres.com/{img_jpg}'  # print jpg extension with rest of url
         
         # get title
         hemi_title = soup.find('h2', class_='title').get_text()

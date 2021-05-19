@@ -123,12 +123,12 @@ def mars_hemisphers(browser):
         
         img_url = img.a['href']
         # set up link full url
-        img_link = 'https://marshemispheres.com/' + img_url
+        img_link = url + img_url
         # Visit each link
         browser.visit(img_link)
         
         # dictionary to hold the urls/titles
-        hemisphere = {}
+        hemisphere_dict = {}
         
         # reparse html
         html = browser.html
@@ -140,15 +140,15 @@ def mars_hemisphers(browser):
             img_jpg = img_click['src'] # use parent element to find src 
             img_jpg_url = f'https://marshemispheres.com/' + img_jpg  # print jpg extension with rest of url
         # get title
-            hemi_title = soup.find('h2', class_='title').get_text()
+            hemi_title = bs.find('h2', class_='title').get_text()
         except AttributeError:
             return None
         # append title/img to dict
-        hemisphere['title'] = hemi_title
-        hemisphere['img_url'] = img_jpg_url
+        hemisphere_dict['title'] = hemi_title
+        hemisphere_dict['img_url'] = img_jpg_url
         
         # append dict to list
-        hemisphere_image_urls.append(hemisphere)  
+        hemisphere_image_urls.append(hemisphere_dict)  
         
         #send browser back to main url page to restart search
         browser.back()

@@ -100,86 +100,86 @@ def mars_facts():
     return df.to_html(classes="table table-striped")
 
 
-# def mars_hemisphers(browser):
-#     # 1. Use browser to visit the URL 
-#     url = 'https://marshemispheres.com/'
-#     browser.visit(url)
-
-#     # 2. Create a list to hold the images and titles.
-#     hemisphere_image_urls = []
-
-#     # 3. Write code to retrieve the image urls and titles for each hemisphere.
-#     # scrape page into soup
-#     html = browser.html
-#     bs = soup(html, "html.parser")
-
-#     # Find hemisphere image link and title
-#     mars_hemispheres = bs.find_all('div', class_='description')
-   
-        
-#     # loop through and select HTML link under href and grab the jpeg
-#     for img in mars_hemispheres:
-#         # find link with references
-        
-#         img_url = img.a['href']
-#         # set up link full url
-#         img_link = url + img_url
-#         # Visit each link
-#         browser.visit(img_link)
-        
-#         # dictionary to hold the urls/titles
-#         hemisphere_dict = {}
-        
-#         # reparse html
-#         html = browser.html
-#         bs = soup(html, "html.parser")
-        
-#         try:
-#         # get jpg image
-#             img_click = bs.find('img', class_='wide-image')
-#             img_jpg = img_click['src'] # use parent element to find src 
-#             img_jpg_url = f'https://marshemispheres.com/' + img_jpg  # print jpg extension with rest of url
-#         # get title
-#             hemi_title = bs.find('h2', class_='title').get_text()
-#         except AttributeError:
-#             return None
-#         # append title/img to dict
-#         hemisphere_dict['title'] = hemi_title
-#         hemisphere_dict['img_url'] = img_jpg_url
-        
-#         # append dict to list
-#         hemisphere_image_urls.append(hemisphere_dict)  
-        
-#         #send browser back to main url page to restart search
-#         browser.back()
-
-#     #return list of dict. of urls and titles
-#     return hemisphere_image_urls
-
 def mars_hemisphers(browser):
+    # 1. Use browser to visit the URL 
     url = 'https://marshemispheres.com/'
     browser.visit(url)
+
     # 2. Create a list to hold the images and titles.
     hemisphere_image_urls = []
+
     # 3. Write code to retrieve the image urls and titles for each hemisphere.
-    for i in range(4):
-        hemisphere = {}
-        keys = range(2)
-        links = browser.find_by_tag("div.description a.itemLink.product-item")[i]
-        links.click()
+    # scrape page into soup
+    html = browser.html
+    bs = soup(html, "html.parser")
+
+    # Find hemisphere image link and title
+    mars_hemispheres = bs.find_all('div', class_='description')
+   
+        
+    # loop through and select HTML link under href and grab the jpeg
+    for img in mars_hemispheres:
+        # find link with references
+        
+        img_url = img.a['href']
+        # set up link full url
+        img_link = url + img_url
+        # Visit each link
+        browser.visit(img_link)
+        
+        # dictionary to hold the urls/titles
+        hemisphere_dict = {}
+        
+        # reparse html
         html = browser.html
-        img_soup = soup(html, 'html.parser')
-        img_url_rel = img_soup.select_one('li a').get('href')
-        title = img_soup.select_one('h2', class_='title').get_text()
-        values = [img_url_rel, title]
-        for i in keys:
-            hemisphere[i] = values[i]
-        hemisphere['img_url'] = hemisphere.pop(0)
-        hemisphere['title'] = hemisphere.pop(1)
-        hemisphere_image_urls.append(hemisphere)
+        bs = soup(html, "html.parser")
+        
+        try:
+        # get jpg image
+            img_click = bs.find('img', class_='wide-image')
+            img_jpg = img_click['src'] # use parent element to find src 
+            img_jpg_url = f'https://marshemispheres.com/' + img_jpg  # print jpg extension with rest of url
+        # get title
+            hemi_title = bs.find('h2', class_='title').get_text()
+        except AttributeError:
+            return None
+        # append title/img to dict
+        hemisphere_dict['title'] = hemi_title
+        hemisphere_dict['img_url'] = img_jpg_url
+        
+        # append dict to list
+        hemisphere_image_urls.append(hemisphere_dict)  
+        
+        #send browser back to main url page to restart search
         browser.back()
-    # 4. Print the list that holds the dictionary of each image url and title.
+
+    #return list of dict. of urls and titles
     return hemisphere_image_urls
+
+# def mars_hemisphers(browser):
+#     url = 'https://marshemispheres.com/'
+#     browser.visit(url)
+#     # 2. Create a list to hold the images and titles.
+#     hemisphere_image_urls = []
+#     # 3. Write code to retrieve the image urls and titles for each hemisphere.
+#     for i in range(4):
+#         hemisphere = {}
+#         keys = range(2)
+#         links = browser.find_by_tag("div.description a.itemLink.product-item")[i]
+#         links.click()
+#         html = browser.html
+#         img_soup = soup(html, 'html.parser')
+#         img_url_rel = img_soup.select_one('li a').get('href')
+#         title = img_soup.select_one('h2', class_='title').get_text()
+#         values = [img_url_rel, title]
+#         for i in keys:
+#             hemisphere[i] = values[i]
+#         hemisphere['img_url'] = hemisphere.pop(0)
+#         hemisphere['title'] = hemisphere.pop(1)
+#         hemisphere_image_urls.append(hemisphere)
+#         browser.back()
+#     # 4. Print the list that holds the dictionary of each image url and title.
+#     return hemisphere_image_urls
 
     
 if __name__ == "__main__":

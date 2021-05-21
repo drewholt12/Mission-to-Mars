@@ -60,8 +60,8 @@
           <h2 class="text-center">Mars Hemispheres</h2>
         </div>
 
-        {% for hemisphere in mars.hemispheres %}
-        <div class="col-md-6">
+              {% for hemisphere in mars.hemisphere_image_urls %}
+        <div class="col-md-4">
           <div class="card text-white bg-danger" style="margin: 30px;">
               <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
               <img class="card-img-top" src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="..."/>

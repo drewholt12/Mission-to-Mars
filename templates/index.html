@@ -11,19 +11,19 @@
     />
   </head>
   <body >
-    <div class="container">
+    <div class="container-fluid">
       <!-- Add Jumbotron to Header -->
-      <div class="jumbotron text-center" style='background-color: rgb(209, 109, 27);'>
+      <div class="jumbotron text-center" style="background-image: url(https://cdn.mos.cms.futurecdn.net/tcJMzYq7PVjyQacEZW5FLH-970-80.jpg)">
         <h1>Mission to Mars</h1>
         <!-- Add a button to activate scraping script -->
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get New Data</a></p>
         </div>
 
       <!-- Add section for Mars News -->
-      <div class="row" id="mars-news">
+      <div class="row" id="mars-news" style="background-color:#e05616">
         <div class="col-md-12" >
           <div class="media">
-            <div class="media-body text-center">
+            <div class="media-body text-center" style="color:white">
               <h2>Latest Mars News</h2>
               <h4 class="media-heading">{{ mars.news_title }}</h4>
               <p>{{ mars.news_paragraph }}</p>
@@ -61,8 +61,8 @@
         </div>
 
         {% for hemisphere in mars.hemisphere_image_urls %}
-        <div class="col-md-12">
-            <div class="img-rounded">
+        <div class="container">
+              <div class="col-md-4">
               <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
               <img src="{{hemisphere.img_url | default('static/images/error.png', true)}}" alt="..." style="width:75%"/>
               <div class="caption">
